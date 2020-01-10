@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<title>Octopus Referral Randomiser</title>
+	<style>
+		html {
+			width: 100%;
+			height: 100%;
+			background-color: #040E28;
+			color: #fff;
+		}
+		body {
+			font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+		}
+		.referralCont {
+			text-align: center;
+			position: absolute;
+			height: 100px;
+			width: 800px;
+		    left: 50%;
+		    top: 50%;
+		    transform: translate(-50%, -50%);
+		    -webkit-transform: translate(-50%, -50%);
+		    -moz-transform: translate(-50%, -50%);
+		    -ms-transform: translate(-50%, -50%);
+		}
+		.referralCont h1 {
+			font-size: 26px;
+			padding:0;
+			margin:0;
+		}
+		.referralCont h2 {
+			font-size: 33px;
+		}
+		a {
+			 color: #fff;
+			 text-decoration: none;
+		 }
+		a:hover {
+			text-decoration: underline;
+		}
+		.referralFoot {
+			width: 100%;
+			position: absolute;
+			bottom: 10px;
+			text-align: center;
+			font-size: 12px;
+		}
+
+	</style>
+</head>
+<body>
+
+<section class="referralCont">
+	<h1>Your referral code is...</h1>
+	<h2 id="referral"></h2>
+</section>
+
+<script>
+	const url = "https://sheets.googleapis.com/v4/spreadsheets/1Qk8X_knAIlE1g6So7nXVInyRxTWHon6LCAqg3jry4cg/values/Sheet1?key=AIzaSyAiIQpEvQ9NTV0oyfi2puHlD2IO5EwNF5c";
+
+	const req = new XMLHttpRequest();
+	req.open('GET', url, false);
+	req.send(null)
+	const data = JSON.parse(req.responseText);
+
+	const randomOctopusReferralCode = data.values[Math.floor(Math.random()*data.values.length)][0]
+	const referralLink = document.createElement('a');
+	referralLink.href = randomOctopusReferralCode;
+	referralLink.appendChild(document.createTextNode(randomOctopusReferralCode))
+
+	document.getElementById('referral').appendChild(referralLink);
+</script>
+
+<footer class="referralFoot">
+<span>Website: 	© <a href="http://www.flyinganvil.co.uk/">Flying Anvil Ltd</a></span>
+</footer>
+
+</body>
+</html>
